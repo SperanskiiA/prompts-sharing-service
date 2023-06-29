@@ -9,7 +9,7 @@ type FormProps = {
   submit: boolean;
   type: string;
   setPost: Dispatch<SetStateAction<{ prompt: string; tag: string }>>;
-  onSubmit: (e: any) => Promise<void>;
+  onSubmit?: (e: any) => Promise<void>;
 };
 
 const Form = ({ post, setPost, submit, onSubmit, type }: FormProps) => {

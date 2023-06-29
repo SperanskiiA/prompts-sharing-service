@@ -1,11 +1,14 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import PromptCard from './PromptCard';
+
 import PromptCardList from './PromptCardList';
+import { PromptProps } from './PromptCard';
+
+import SkeletonCardList from './SkeletonCardList';
 
 const Feed = () => {
-  const [prompts, setPrompts] = useState([]);
+  const [prompts, setPrompts] = useState<PromptProps[]>([]);
   const [searchQuery, setQuery] = useState('');
 
   useEffect(() => {
@@ -18,21 +21,29 @@ const Feed = () => {
     fetchPrompts();
   }, []);
 
+  const filteredPrompts = prompts
+    ? prompts.filter(({ tag, prompt }) => {
+        const concated = tag.join(' ').concat(prompt);
+        return concated.toLowerCase().includes(searchQuery.toLowerCase());
+      })
+    : [];
+
   return (
     <section className="feed">
       <form className="relative w-full flex-center">
         <input
           type="text"
-          placeholder="What U R looking for?"
+          placeholder="type your query here..."
           value={searchQuery}
           onChange={(e) => setQuery(e.target.value)}
           className="search_input peer"
         />
       </form>
-      <PromptCardList
-        data={prompts ? prompts : []}
-        handleTagClick={() => console.log('tag was clicked')}
-      />
+      {filteredPrompts.length ? (
+        <PromptCardList data={filteredPrompts} />
+      ) : (
+        <SkeletonCardList />
+      )}
     </section>
   );
 };

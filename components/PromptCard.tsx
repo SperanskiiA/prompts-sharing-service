@@ -18,19 +18,21 @@ export type PromptProps = {
 
 type PromptCardProps = {
   post: PromptProps;
-  handleTagClick?: (tag: string) => void;
-  handleEdit?: () => void;
-  handleDelete?: () => void;
+
+  handleEdit?: (post: PromptProps) => void;
+  handleDelete?: (post: PromptProps) => void;
 };
 
 const PromptCard = ({
   post,
-  handleTagClick,
+
   handleDelete,
   handleEdit,
 }: PromptCardProps) => {
   const [copied, setCopied] = useState('');
-  console.log(post);
+  const pathName = usePathname();
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const handleCopy = () => {
     setCopied(post.prompt);
@@ -38,10 +40,21 @@ const PromptCard = ({
     setTimeout(() => setCopied(''), 3500);
   };
 
+  const handleTagClick = (tag: string) => {
+    router.push(`/tag/${tag}`);
+  };
+
+  const handleUserClick = (userName: string) => {
+    router.push(`/profile/${userName}`);
+  };
+
   return (
     <div className="prompt_card">
       <div className="flex justify-around items-start gap-4">
-        <div className="flex flex-1 justify-start items-center gap-3 cursor-pointer">
+        <div
+          className="flex flex-1 justify-start items-center gap-3 cursor-pointer"
+          onClick={() => handleUserClick(post.creator.email)}
+        >
           <Image
             src={post?.creator?.image}
             alt={'user_image'}
@@ -73,16 +86,36 @@ const PromptCard = ({
         </div>
       </div>
       <p className="my-4 font-satoshi text-sm">{post.prompt}</p>
-      <div className="flex flex-raw gap-2">
+      <div className="flex flex-raw gap-2 flex-wrap">
         {post.tag.map((item) => (
           <span
-            onClick={() => handleTagClick && handleTagClick(item)}
+            onClick={() => handleTagClick(item)}
             className="font-inter text-sm blue_gradient cursor-pointer font-semibold"
           >
             {item[0] === '#' ? item : '#' + item}
           </span>
         ))}
       </div>
+
+      {
+        //@ts-expect-error
+        session?._id === post.creator._id && pathName === '/profile' && (
+          <div className="flex justify-end items-center gap-5 mt-5 border-t border-gray-200 pt-3">
+            <p
+              className="font-inter text-sm green_gradient cursor-pointer"
+              onClick={() => handleEdit && handleEdit(post)}
+            >
+              Edit
+            </p>
+            <p
+              className="font-inter text-sm orange_gradient cursor-pointer"
+              onClick={() => handleDelete && handleDelete(post)}
+            >
+              Delete
+            </p>
+          </div>
+        )
+      }
     </div>
   );
 };

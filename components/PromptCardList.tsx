@@ -3,14 +3,14 @@ import PromptCard, { PromptProps } from './PromptCard';
 
 type PromptCardListProps = {
   data: PromptProps[];
-  handleTagClick?: (tag: string) => void;
-  handleEdit?: () => void;
-  handleDelete?: () => void;
+
+  handleEdit?: (post: PromptProps) => void;
+  handleDelete?: (post: PromptProps) => void;
 };
 
 const PromptCardList = ({
   data,
-  handleTagClick,
+
   handleDelete,
   handleEdit,
 }: PromptCardListProps) => {
@@ -20,9 +20,8 @@ const PromptCardList = ({
         //@ts-ignore
         <PromptCard
           key={post._id}
-          handleTagClick={() => handleTagClick && handleTagClick(post._id)}
-          handleDelete={() => handleDelete && handleDelete()}
-          handleEdit={() => handleEdit && handleEdit()}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}
           post={post}
         />
       ))}

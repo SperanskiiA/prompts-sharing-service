@@ -11,6 +11,7 @@ import {
   ClientSafeProvider,
 } from 'next-auth/react';
 import { BuiltInProviderType } from 'next-auth/providers';
+import { Skeleton } from './ui/skeleton';
 // import '@/styles/global.css';
 
 const Nav = () => {
@@ -44,13 +45,12 @@ const Nav = () => {
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 flex-center">
         <Image
-          src="/assets/images/logo.svg"
+          src="/assets/images/prompt-ocean-full-logo.svg"
           alt="logo"
-          width={30}
-          height={30}
+          width={150}
+          height={40}
           className="object-contain"
         />
-        <p className="logo_text">Promptopia</p>
       </Link>
       {/* desctop nav */}
       <div className="sm:flex hidden">
@@ -70,15 +70,15 @@ const Nav = () => {
               <Image
                 src={img}
                 alt="profile-icon"
-                width={37}
-                height={37}
+                width={45}
+                height={45}
                 className="rounded-full"
               />
             </Link>
           </div>
         ) : (
           <>
-            {providers &&
+            {providers ? (
               Object.values(providers).map((provider) => {
                 return (
                   <button
@@ -90,7 +90,12 @@ const Nav = () => {
                     Sign In
                   </button>
                 );
-              })}
+              })
+            ) : (
+              <>
+                <Skeleton className="h-[45px] w-[45px]  bg-slate-300 rounded-full ml-3" />
+              </>
+            )}
           </>
         )}
       </div>
@@ -102,8 +107,8 @@ const Nav = () => {
             <Image
               src={img}
               alt="profile-icon"
-              width={34}
-              height={34}
+              width={45}
+              height={45}
               className="rounded-full"
               onClick={() => setDropdown((s) => !s)}
             />
@@ -139,7 +144,7 @@ const Nav = () => {
           </div>
         ) : (
           <>
-            {providers &&
+            {providers ? (
               Object.values(providers).map((provider) => {
                 return (
                   <button
@@ -151,7 +156,12 @@ const Nav = () => {
                     Sign In
                   </button>
                 );
-              })}
+              })
+            ) : (
+              <>
+                <Skeleton className="h-[45px] w-[45px]  bg-slate-300 rounded-full ml-3" />
+              </>
+            )}
           </>
         )}
       </div>

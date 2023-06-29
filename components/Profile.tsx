@@ -6,8 +6,8 @@ type ProfileProps = {
   name: string;
   desc: string;
   data: PromptProps[];
-  handleEdit: () => void;
-  handleDelete: () => void;
+  handleEdit?: (post: PromptProps) => void;
+  handleDelete?: (post: PromptProps) => void;
 };
 
 const Profile = ({
@@ -19,14 +19,16 @@ const Profile = ({
 }: ProfileProps) => {
   return (
     <section className="w-full">
-      <h1 className="head_text text-left">
+      <h1 className="head_text text-center">
         <span className="blue_gradient">{name} Profile</span>
       </h1>
-      <p className="mt-4 desc text-left">{desc}</p>
+      <div className="w-full flex items-center justify-center">
+        <p className="mt-4 desc text-center">{desc}</p>
+      </div>
       <PromptCardList
         data={data}
-        handleDelete={handleDelete}
-        handleEdit={handleEdit}
+        handleDelete={handleDelete && handleDelete}
+        handleEdit={handleEdit && handleEdit}
       />
     </section>
   );

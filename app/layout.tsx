@@ -3,6 +3,7 @@ import '@/styles/global.css';
 import Nav from '@/components/Nav';
 import Provider from '@/components/Provider';
 import { Session } from 'next-auth';
+import Footer from '@/components/Footer';
 
 export const metadata = {
   title: 'Promptopia',
@@ -16,7 +17,6 @@ const RootLayout = ({
   children: React.ReactNode;
   session: Session;
 }) => {
-  console.log(session);
   return (
     <html lang="en">
       <body>
@@ -26,7 +26,8 @@ const RootLayout = ({
           </div>
           <main className="app">
             <Nav />
-            {children}
+            <div className="min-h-screen">{children}</div>
+            <Footer />
           </main>
         </Provider>
       </body>
