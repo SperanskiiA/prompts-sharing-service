@@ -6,7 +6,7 @@ import { Session } from 'next-auth';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'Promptopia',
+  title: 'Prompt Ocean',
   description: 'Discover & Share AI Prompts',
 };
 
