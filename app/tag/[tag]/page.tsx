@@ -37,7 +37,7 @@ const TagPage = ({ params: { tag } }: { params: { tag: string } }) => {
           <span className="blue_gradient font-semibold">{tag}</span>
         </p>
       </div>
-      <PromptCardList data={filteredPosts} handleTagClick={handleTagClick} />
+      <PromptCardList data={filteredPosts} />
     </section>
   );
 };
