@@ -18,7 +18,7 @@ const UserProfile = ({ params: { email } }: { params: { email: string } }) => {
   const [posts, setPosts] = useState<PromptProps[]>([]);
   const { data: session } = useSession();
   const router = useRouter();
-  const mail = email.replace('%40', '@');
+  const mail = email + '@gmail.com';
 
   useEffect(() => {
     //@ts-expect-error

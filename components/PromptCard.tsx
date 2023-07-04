@@ -45,7 +45,9 @@ const PromptCard = ({
   };
 
   const handleUserClick = (userName: string) => {
-    router.push(`/profile/${userName}`);
+    const mail = userName.split('@');
+    console.log(mail);
+    router.push(`/profile/${mail[0]}`);
   };
 
   return (
